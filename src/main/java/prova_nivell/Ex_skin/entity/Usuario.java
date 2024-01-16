@@ -79,8 +79,9 @@ public class Usuario {
     }
 
     public void setSkins(List<Skin> skins) {
-        this.skins = skins;
+        this.skins=skins;
     }
+
 
     public List<Skin> afegirSkin(Skin skin){
         skins.add(skin);

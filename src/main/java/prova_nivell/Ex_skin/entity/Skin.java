@@ -69,4 +69,14 @@ public class Skin {
         this.precio = precio;
     }
 
+    @Override
+    public String toString() {
+        return "Skin{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", color='" + color + '\'' +
+                ", precio=" + precio +
+                '}';
+    }
 }

@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface SkinService {
 
     Skin guardarSkin(Skin skin);
-    List<Skin> listadoSkinsDispponibles(String fichero);
+    List<Skin> listadoSkinsDispponibles();
     List<Skin> listadoSkinsUsuarioId(Long usuario_id);
-   // List<Skin> comprarSkin(Skin skin, Long usuario_id);
+    boolean comprarSkin(Skin skin, Long usuario_id);
     Skin actualizarSkin(Skin skin);
     void borrarSkin(Usuario usuario);
 

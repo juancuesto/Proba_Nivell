@@ -6,6 +6,7 @@ import prova_nivell.Ex_skin.entity.Usuario;
 import prova_nivell.Ex_skin.repository.SkinRepository;
 import prova_nivell.Ex_skin.repository.UsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,10 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioOptional.get().setSkins(usuario.getSkins());
         usuarioRepository.save(usuarioOptional.get());
         return null;
+    }
+
+    @Override
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 }

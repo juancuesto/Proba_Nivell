@@ -1,8 +1,22 @@
 
+[{
+  "id":1,
+  "nombre": "Guille",
+  "tipo": "CONFIGURABLE",
+  "color": "verde",
+  "precio": 300
+},
   {
-    "id":1,
-    "nombre": "Guille",
+    "id":2,
+    "nombre": "Ryo",
     "tipo": "CONFIGURABLE",
-    "color": "verde"
-  }
-
+    "color": "blanco",
+    "precio": 200
+  },
+  {
+    "id":3,
+    "nombre": "Ken",
+    "tipo": "CONFIGURABLE",
+    "color": "rojo",
+    "precio": 400
+  }]

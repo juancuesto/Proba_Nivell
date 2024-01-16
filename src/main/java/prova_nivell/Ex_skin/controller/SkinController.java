@@ -26,24 +26,27 @@ public class SkinController {
 
     @PostMapping("/buy/{usuario_id}")
     public ResponseEntity<?> comrprarSkin(@PathVariable("usuario_id") Long id,@RequestBody Skin skin){
-        try{
-            Optional<Usuario> usuarioOptional=usuarioService.buscarUsuario(id);
-            if(usuarioOptional.isEmpty()){
-                return new ResponseEntity<>("Error al buscar el usuario",HttpStatus.NOT_FOUND);
-            }
-            if(usuarioOptional.get().getSaldo()>=skin.getPrecio()){
+
+        try {
+            boolean a=skinService.comprarSkin(skin,id);
+            Optional<Usuario>usuarioOptional=usuarioService.buscarUsuario(id);
+            if(a &&(usuarioOptional.isPresent())){
+                if(usuarioOptional.get().getSaldo()>=skin.getPrecio()){
                 double saldoInicial=usuarioOptional.get().getSaldo();
                 double saldoFinal=saldoInicial-skin.getPrecio();
                 usuarioOptional.get().setSaldo(saldoFinal);
                 usuarioOptional.get().afegirSkin(skin);
-
                 return new ResponseEntity<>(usuarioService.actualizarUsuario(usuarioOptional.get()),HttpStatus.OK);
-            }else {
-                return new ResponseEntity<>("No tienes saldo suficiente para comprar el skin",HttpStatus.NO_CONTENT);
+            }else{
+                    return new ResponseEntity<>("El usuario no tiene saldo suficinte para compar Skin",HttpStatus.NO_CONTENT);
+                }
+        }else {
+                return new ResponseEntity<>("No se ha podido realizar la compra",HttpStatus.BAD_REQUEST);
             }
-        }catch (Exception e){
+        }catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @GetMapping("/myskins/{usuario_id}")
@@ -124,21 +127,6 @@ public class SkinController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/avalaible")
-    public ResponseEntity<?> mostrarSkinDisponibles(){
-        try{
-            //crear objeto mapper
-            ObjectMapper miMapper=new ObjectMapper();
-            //leer el JSON y convertirlo a POJO
-            Skin obj=miMapper.readValue(new File("data/skins.json"),Skin.class);
-            return new ResponseEntity<>(obj,HttpStatus.OK);
-
-        }catch (Exception e){
-            return new ResponseEntity<>("error al leer el archivo JSON",HttpStatus.NO_CONTENT);
-        }
-
-    }
-
     @PostMapping("afegir/skin")
     public ResponseEntity<?> afegirSkin(@RequestBody Skin skin){
         Skin skin1=skinService.guardarSkin(skin);
@@ -146,5 +134,15 @@ public class SkinController {
             return new ResponseEntity<>("Error al crear el skin",HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(skin1,HttpStatus.CREATED);
+    }
+
+    @GetMapping("listado/skins")
+    public ResponseEntity<?> listarSkinsDisponibles(){
+        try{
+            //skinService.listadoSkinsDispponibles();
+            return new ResponseEntity<>(skinService.listadoSkinsDispponibles(),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("error al leer el archivo JSON",HttpStatus.BAD_REQUEST);
+        }
     }
 }
