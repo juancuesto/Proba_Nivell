@@ -113,7 +113,7 @@ public List<Skin> listadoSkinsDispponibles() {
 //            System.out.println("la parte 1 es:------------------"+p1);
 //            System.out.println("la parte 2 es:------------------"+p2);
        }
-        }
+
             entrada.close();
             return  listadoSkins;
         } catch (IOException e) {
