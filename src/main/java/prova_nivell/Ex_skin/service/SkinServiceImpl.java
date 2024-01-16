@@ -105,7 +105,7 @@ public List<Skin> listadoSkinsDispponibles() {
         while (linea != null) {
         linea = mibuffer.readLine();
         System.out.println(linea);
-        if(linea.contains("")){
+//        if(linea.contains("")){
 
 //            String[] parts=linea.split(":");
 //                        String p1=parts[0];
